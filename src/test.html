@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8" />
+        <title>画像検索</title>
+        <script>
+                window.addEventListener("DOMContentLoaded",function(){
+                    var button = document.getElementById('button');
+                    button.addEventListener("click",function(){
+                        var input = document.getElementById('keyword');
+                        var keyword = input.value;
+                        
+                        
+                        //scriptタグを生成
+                        var script = document.createElement('script');
+
+                        //srcにFlickrAPIを指定
+                        var API_KEY = "AIzaSyCV9_ZrLS01hicPV0xxem3MmY8ZxiYkSgk";
+                        var SEARCH_ENGINE_ID = "007657717654432332132:thkd0hs9gbc";
+                        var searchWords = encodeURIComponent(keyword);
+                        var apiURL = "https://www.googleapis.com/customsearch/v1?key=" + API_KEY + "&cx=" + SEARCH_ENGINE_ID +"&searchType=image&q=" + searchWords;
+                        console.log(apiURL);
+                        script.src = apiURL;
+                        
+                        //FilckrAPI呼び出し
+                        document.body.appendChild(script);
+
+                        //scriptタグ削除
+                        document.body.removeChild(script);
+                        
+                    });
+                });
+
+                function googleResponce(data){
+
+                    //表示領域の初期化
+                    var photo_list = document.getElementById("photo_list");
+                    photo_list.innerHTML = "";
+
+                    //itemキーで検索結果取得
+                    for(i=0;i<data.items.length;i++){
+                        var item = data.items[i];
+                    
+
+                        //img要素
+                        var img = document.createElement("img");
+
+                        //img要素のsrcに検索結果の画像URLを指定
+                        img.src = item.link;
+                        photo_list.appendChild(img);
+                        
+                    }
+                }
+         </script>
+
+    </head>
+    <body>
+            <input type="text" id="keyword" name="keyword">
+            <input type="button" id="button" value="検索">
+            <div id="photo_list">            
+            <img src="../img/imgTest.jpeg">
+            </div>
+    </body>
+</html>
