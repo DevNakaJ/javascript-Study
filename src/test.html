@@ -10,19 +10,17 @@
                         var input = document.getElementById('keyword');
                         var keyword = input.value;
                         
-                        
                         //scriptタグを生成
                         var script = document.createElement('script');
 
-                        //srcにFlickrAPIを指定
+                        //srcにGoogleAPIを指定
                         var API_KEY = "AIzaSyCV9_ZrLS01hicPV0xxem3MmY8ZxiYkSgk";
                         var SEARCH_ENGINE_ID = "007657717654432332132:thkd0hs9gbc";
                         var searchWords = encodeURIComponent(keyword);
                         var apiURL = "https://www.googleapis.com/customsearch/v1?key=" + API_KEY + "&cx=" + SEARCH_ENGINE_ID +"&searchType=image&q=" + searchWords;
-                        console.log(apiURL);
                         script.src = apiURL;
                         
-                        //FilckrAPI呼び出し
+                        //GoogleAPI呼び出し
                         document.body.appendChild(script);
 
                         //scriptタグ削除
@@ -31,6 +29,10 @@
                     });
                 });
 
+                /**
+                 *  googleAPIのレスポンス受け取りたい(どうやるかまだ試行錯誤中)
+                 *  とりあえずページに画像詰めるロジックだけ追加
+                */
                 function googleResponce(data){
 
                     //表示領域の初期化
@@ -57,7 +59,8 @@
     <body>
             <input type="text" id="keyword" name="keyword">
             <input type="button" id="button" value="検索">
-            <div id="photo_list">            
+            <div id="photo_list">  
+            <!-- 画像が表示できるかテスト -->          
             <img src="../img/imgTest.jpeg">
             </div>
     </body>
